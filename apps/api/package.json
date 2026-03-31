@@ -10,9 +10,15 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
     "express": "^5.2.1",
-    "mongoose": "^9.3.3"
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.3.3",
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
