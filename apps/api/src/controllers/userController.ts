@@ -1,5 +1,6 @@
 import { BadRequestError } from "@/core/CustomError";
 import User from "@/models/userModels";
+import { userLoginSchema, userRegisterSchema } from "@/schemas/userSchema";
 import { ProtectedRequest } from "@/types/app-request";
 import { generateToken } from "@/utils/generateToken";
 import { RequestHandler, Response } from "express";
@@ -7,6 +8,12 @@ import asyncHandler from "express-async-handler";
 
 export const loginUser: RequestHandler = asyncHandler(async (req: ProtectedRequest, res: Response) => {
     const { email, password } = req.body;
+
+    const validatedData = userLoginSchema.safeParse({ email, password });
+
+    if (!validatedData.success) {
+        throw new BadRequestError("Invalid user credentials");
+    }
 
     const user = await User.findOne({ email });
 
@@ -18,18 +25,23 @@ export const loginUser: RequestHandler = asyncHandler(async (req: ProtectedReque
             email: user.email,
         });
     } else {
-        throw new BadRequestError("Invalid email or password");
+        throw new BadRequestError("Invalid user credentials");
     }
 });
 
 export const registerUser: RequestHandler = asyncHandler(async (req: ProtectedRequest, res: Response) => {
     const { name, email, password } = req.body;
 
+    const validatedData = userRegisterSchema.safeParse({ name, email, password });
+
+    if (!validatedData.success) {
+        throw new BadRequestError("Invalid user data");
+    }
+
     const userExists = await User.findOne({ email });
 
     if (userExists) {
-        res.status(400);
-        throw new Error("User already exists");
+        throw new BadRequestError("User already exists");
     };
 
     const user = await User.create({ name, email, password });
@@ -42,8 +54,7 @@ export const registerUser: RequestHandler = asyncHandler(async (req: ProtectedRe
             email: user.email,
         });
     } else {
-        res.status(400);
-        throw new Error("Invalid user data");
+        throw new BadRequestError("Invalid user data");
     }
 });
 

@@ -1,6 +1,8 @@
 import { corsUrl, environment } from "@/config/config";
 import { ApiError, ErrorType } from "@/core/ApiError";
 import healthRouter from "@/routes/health.route";
+import userRouter from "@/routes/user.route";
+import { formatStackTrace } from "@/utils/formatStackTrace";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { NextFunction, Request, Response, type Application } from "express";
@@ -19,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.use("/api", healthRouter);
+app.use("/api", userRouter);
 
 app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
     if (err instanceof ApiError) {
@@ -32,14 +35,17 @@ app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
         }
 
         if (err.stack) {
-            LoggerService.error(err.stack);
+            LoggerService.error("API error stack trace", { stack: err.stack });
         }
 
         if (environment === "development") {
             return res.status(statusCode).json({
                 type: err.type,
                 message: err.message,
-                stack: err.stack,
+                stackTrace: formatStackTrace(err.stack, {
+                    maxFrames: 20,
+                    appRoot: process.cwd(),
+                }),
             });
         }
 
@@ -55,14 +61,17 @@ app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
     );
 
     if (stack) {
-        LoggerService.error(stack);
+        LoggerService.error("Unhandled error stack trace", { stack });
     }
 
     if (environment === "development") {
         return res.status(fallbackError.statusCode).json({
             type: fallbackError.type,
             message,
-            stack,
+            stackTrace: formatStackTrace(stack, {
+                maxFrames: 20,
+                appRoot: process.cwd(),
+            }),
         });
     }
 
