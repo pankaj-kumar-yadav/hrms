@@ -1,3 +1,4 @@
+import { BadRequestError } from "@/core/CustomError";
 import User from "@/models/userModels";
 import { ProtectedRequest } from "@/types/app-request";
 import { generateToken } from "@/utils/generateToken";
@@ -17,8 +18,7 @@ export const loginUser: RequestHandler = asyncHandler(async (req: ProtectedReque
             email: user.email,
         });
     } else {
-        res.status(401);
-        throw new Error("Invalid email or password");
+        throw new BadRequestError("Invalid email or password");
     }
 });
 

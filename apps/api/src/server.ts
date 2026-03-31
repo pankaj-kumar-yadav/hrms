@@ -1,19 +1,17 @@
 import "dotenv/config";
 
 import { app } from "@/app";
-import { logger } from "@/core/Logger";
+import { mongoURI, port } from "@/config/config";
 import { connectDB } from "@/config/db";
-
-const port = Number(process.env.PORT ?? 8080);
-const MONGO_URI = process.env.MONGO_URI as string;
+import { LoggerService } from "@/core/Logger";
 
 const startServer = async () => {
   try {
-    await connectDB(MONGO_URI);
-    
+    await connectDB(mongoURI);
+
     app.listen(port);
 
-    logger.info(`API server listening on port ${port}`);
+    LoggerService.info(`API server listening on port ${port}`);
     console.log(`API server listening on port ${port}`);
 
   } catch (error) {

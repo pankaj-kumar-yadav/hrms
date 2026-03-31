@@ -32,7 +32,7 @@ const dailyRotateFile = new DailyRotateFile({
     zippedArchive: true,
 });
 
-export const logger = createLogger({
+export const LoggerService = createLogger({
     transports: [
         new transports.Console({
             level: logLevel,
