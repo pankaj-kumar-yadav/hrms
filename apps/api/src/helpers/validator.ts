@@ -6,7 +6,7 @@ export enum ValidationSource {
     BODY = "body",
     QUERY = "query",
     PARAMS = "params",
-    HEADER = "header",
+    HEADERS = "headers",
 };
 
 export const validateRequest = (schema: ZodSchema, source: ValidationSource = ValidationSource.BODY) => {
