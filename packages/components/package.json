@@ -1,0 +1,33 @@
+{
+  "name": "@repo/components",
+  "version": "0.0.0",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./components/*": "./dist/*.js",
+    "./*": "./dist/*.js"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm run build:components",
+    "build:components": "tsc",
+    "check-types": "tsc --noEmit",
+    "dev": "pnpm run dev:components",
+    "dev:components": "tsc --watch",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "peerDependencies": {
+    "react": "^19"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.1.0",
+    "eslint": "^9.39.1",
+    "typescript": "5.9.2"
+  },
+  "dependencies": {
+    "hugeicons-react": "^0.4.0"
+  }
+}
