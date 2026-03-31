@@ -34,3 +34,7 @@ yarn-error.log*
 
 # ui
 dist/
+
+apps/api/.env
+.env
+.env.local
