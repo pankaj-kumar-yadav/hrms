@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
-import { Document, model, Model, Schema } from "mongoose";
+import { Document, model, Model, Schema, Types } from "mongoose";
 
 export interface UserDoc extends Document {
+    _id: Types.ObjectId;
     name?: string;
     email?: string;
     password?: string;
@@ -12,8 +13,8 @@ export interface UserModel extends Model<UserDoc> {
     matchPassword?: (enteredPassword: string) => Promise<boolean>;
 };
 
-export const DOCUMENT_NAME = "User";
-export const COLLECTION_NAME = "users";
+export const USER_DOCUMENT_NAME = "User";
+export const USER_COLLECTION_NAME = "users";
 
 const userSchema: Schema = new Schema<UserDoc>(
     {
@@ -51,6 +52,6 @@ userSchema.pre("save", async function () {
     }
 });
 
-const User: Model<UserDoc> = model<UserDoc, UserModel>(DOCUMENT_NAME, userSchema, COLLECTION_NAME);
+const User: Model<UserDoc> = model<UserDoc, UserModel>(USER_DOCUMENT_NAME, userSchema, USER_COLLECTION_NAME);
 
 export default User;

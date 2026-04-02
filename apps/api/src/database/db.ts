@@ -1,4 +1,4 @@
-import { db, environment } from "@/config/config";
+import { db, environment } from "@/config";
 import { LoggerService } from "@/core/Logger";
 import mongoose, { ConnectOptions, Query } from "mongoose";
 

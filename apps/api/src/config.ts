@@ -15,5 +15,13 @@ export const db = {
 // Logger configuration
 export const logDirectory = process.env.LOG_DIR;
 
-
 export const corsUrl = process.env.CORS_URL;
+
+export const tokenInfo = {
+    issuer: process.env.TOKEN_ISSUER ?? "",
+    audience: process.env.TOKEN_AUDIENCE ?? "",
+    secret: process.env.TOKEN_SECRET ?? "",
+    algorithm: process.env.TOKEN_ALGORITHM ?? "",
+    accessTokenValidity: parseInt(process.env.ACCESS_TOKEN_VALIDITY_SEC ?? "3600"),
+    refreshTokenValidity: parseInt(process.env.REFRESH_TOKEN_VALIDITY_SEC ?? "86400"),
+};

@@ -1,8 +1,8 @@
 import "dotenv/config";
 
 import { app } from "@/app";
-import { mongoURI, port } from "@/config/config";
-import { connectDB } from "@/config/db";
+import { mongoURI, port } from "@/config";
+import { connectDB } from "@/database/db";
 import { LoggerService } from "@/core/Logger";
 
 const startServer = async () => {

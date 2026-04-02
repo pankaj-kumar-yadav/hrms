@@ -1,5 +1,5 @@
-import { mongoURI } from "@/config/config";
-import { connectDB } from "@/config/db";
+import { mongoURI } from "@/config";
+import { connectDB } from "@/database/db";
 import { LoggerService } from "@/core/Logger";
 import { ApiKeyDoc, ApiKeyModel, Permission } from "@/models/apiKeyModel";
 import { randomBytes } from "crypto";

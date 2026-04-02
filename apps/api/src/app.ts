@@ -1,4 +1,4 @@
-import { corsUrl, environment } from "@/config/config";
+import { corsUrl, environment } from "@/config";
 import { ApiError, ErrorType } from "@/core/ApiError";
 import healthRouter from "@/routes/health.route";
 import userRouter from "@/routes/user.route";

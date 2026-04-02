@@ -1,4 +1,4 @@
-import { environment, logDirectory } from "@/config/config";
+import { environment, logDirectory } from "@/config";
 import { formatStackTrace } from "@/utils/formatStackTrace";
 import fs from "fs";
 import path from "path";
